@@ -11,9 +11,8 @@ Official n8n integration for [finlight](https://finlight.me) — a financial new
 
 ## Usage
 
-1. Register your n8n webhook URL in the Finlight dashboard.
-2. Use the `Finlight Webhook Trigger` node in your flow.
-3. Optionally validate payloads with HMAC SHA256 signatures.
+1. Register your n8n webhook URL in the finlight dashboard.
+2. Use the `finlight Webhook Trigger` node in your flow.
 
 ## Development
 
@@ -21,8 +20,6 @@ Official n8n integration for [finlight](https://finlight.me) — a financial new
 npm install
 npm run build
 ```
-
-
 
 ```bash
 docker volume create n8n_data
