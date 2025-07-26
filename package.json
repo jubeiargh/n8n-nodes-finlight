@@ -47,10 +47,11 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/FinlightApi.credentials.js"
+      "dist/nodes/finlight/credentials/FinlightApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Finlight/FinlightWebhookTrigger.node.js"
+      "dist/nodes/finlight/triggers/FinlightWebhookTrigger.node.js",
+      "dist/nodes/finlight/actions/FinlightArticleSearch.node.js"
     ]
   },
   "peerDependencies": {
