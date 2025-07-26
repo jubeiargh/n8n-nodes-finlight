@@ -1,0 +1,56 @@
+{
+  "name": "@finlight/n8n-nodes-finlight",
+  "version": "0.1.0",
+  "description": "Official n8n integration for finlight: real-time finance and news API",
+  "author": {
+    "name": "Ali Büyükkakac",
+    "email": "ali@finlight.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jubeiargh/n8n-nodes-finlight.git"
+  },
+  "engines": {
+    "node": ">=20.15"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "n8n-core": "^1.14.1",
+    "n8n-workflow": "^1.82.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "eslint": "^9.32.0",
+    "jest": "^29.4.0",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3"
+  },
+  "keywords": [
+    "finlight",
+    "webhook",
+    "finance",
+    "news",
+    "n8n-community-node-package"
+  ],
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/FinlightApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Finlight/FinlightWebhookTrigger.node.js"
+    ]
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}
