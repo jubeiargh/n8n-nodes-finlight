@@ -1,33 +1,91 @@
-# n8n-nodes-finlight
+# @finlight/n8n-nodes-finlight
 
-Official n8n integration for [finlight](https://finlight.me) — a financial news and data API platform for real-time geopolitical and market intelligence.
+**Official n8n integration for [finlight](https://finlight.me)** — a real-time news and finance API for geopolitics, markets, and macro headlines.
 
-## Features
+This package adds native nodes to [n8n](https://n8n.io) to let you consume and query finlight data inside your automated workflows.
 
-✅ Webhook trigger with signature validation  
-✅ Basic Auth or API Key support  
-✅ News article API integration (coming soon)  
-✅ Typed output for easier downstream workflows
+---
 
-## Usage
+## ✨ Features
 
-1. Register your n8n webhook URL in the finlight dashboard.
-2. Use the `finlight Webhook Trigger` node in your flow.
+- ✅ `finlight Webhook Trigger` — Listen to live streaming events
+- ✅ `finlight Article Search` — Query articles via REST API with flexible filters
+- 🔐 Supports API Key and Basic Auth
 
-## Development
+---
+
+## 🚀 Installation
+
+If you're using a self-hosted n8n instance:
+
+```bash
+npm install @finlight/n8n-nodes-finlight
+````
+
+Then set the custom extension path in your environment or config:
+
+```env
+N8N_CUSTOM_EXTENSIONS=/path/to/node_modules/@finlight/n8n-nodes-finlight
+```
+
+Restart n8n and you'll see the `finlight` nodes available in the editor.
+
+---
+
+## 🧪 Included Nodes
+
+### 🔔 `finlight Webhook Trigger`
+
+Listen to webhook events sent from finlight (e.g. breaking news, alerts, geopolitical headlines).
+
+**Manual webhook registration is required.**
+
+You can create webhooks in your account at:
+🔧 [app.finlight.me](https://app.finlight.me)
+
+Authentication options:
+
+* `x-finlight-key` header
+* Basic Auth
+
+---
+
+### 📡 `finlight Article Search`
+
+Fetch news articles from the finlight `/v2/articles` REST API using a flexible set of parameters:
+
+* `query`
+* `sources` (array)
+* `excludeSources` (array)
+* `tickers` (array)
+* `from`, `to`, `language`, `order`, `page`, `pageSize`
+* `includeContent`, `includeEntities`, `excludeEmptyContent`
+
+See full API reference at:
+📚 [docs.finlight.me](https://docs.finlight.me)
+
+---
+
+## 📦 Development
+
+Clone the repo and build:
 
 ```bash
 npm install
 npm run build
 ```
 
-```bash
-docker volume create n8n_data
+To test with your local n8n instance:
 
-docker run -it --rm \
-  -p 5678:5678 \
-  -v ~/.n8n:/home/node/.n8n \
-  -v ./data/finlight:/data/custom \
-  -e N8N_CUSTOM_EXTENSIONS="/data/custom" \
-  n8nio/n8n
+```bash
+export N8N_CUSTOM_EXTENSIONS=/absolute/path/to/dist
+n8n start
 ```
+
+Or map `dist/` into Docker if using a container setup.
+
+---
+
+## 📘 License
+
+[MIT](./LICENSE) – by [finlight](https://finlight.me)
