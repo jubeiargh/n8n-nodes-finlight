@@ -4,7 +4,7 @@ import {
   INodeTypeDescription,
   IWebhookFunctions,
   IWebhookResponseData,
-  NodeConnectionType,
+  NodeConnectionTypes,
 } from "n8n-workflow";
 
 export class FinlightWebhookTrigger implements INodeType {
@@ -18,7 +18,7 @@ export class FinlightWebhookTrigger implements INodeType {
       name: "finlight Webhook Trigger",
     },
     inputs: [],
-    outputs: [NodeConnectionType.Main],
+    outputs: [NodeConnectionTypes.Main],
     credentials: [
       {
         name: "finlightApi",

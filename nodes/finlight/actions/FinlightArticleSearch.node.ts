@@ -1,4 +1,4 @@
-import { INodeType, INodeTypeDescription, IExecuteFunctions, NodeConnectionType } from "n8n-workflow";
+import { INodeType, INodeTypeDescription, IExecuteFunctions, NodeConnectionTypes } from "n8n-workflow";
 
 export class FinlightArticleSearch implements INodeType {
   description: INodeTypeDescription = {
@@ -10,8 +10,8 @@ export class FinlightArticleSearch implements INodeType {
     defaults: {
       name: "finlight Article Search",
     },
-    inputs: [NodeConnectionType.Main],
-    outputs: [NodeConnectionType.Main],
+    inputs: [NodeConnectionTypes.Main],
+    outputs: [NodeConnectionTypes.Main],
     icon: "file:../finlight.svg",
     credentials: [
       {
