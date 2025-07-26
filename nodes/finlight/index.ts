@@ -1,4 +1,4 @@
 import { FinlightWebhookTrigger } from "./triggers/FinlightWebhookTrigger.node";
-// import { FinlightArticleGet } from "./actions/FinlightArticleGet.node";
+import { FinlightArticleSearch } from "./actions/FinlightArticleSearch.node";
 
-export const nodes = [FinlightWebhookTrigger];
+export const nodes = [FinlightWebhookTrigger, FinlightArticleSearch];
