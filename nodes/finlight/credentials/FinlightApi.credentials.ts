@@ -1,4 +1,4 @@
-import { ICredentialType, INodeProperties } from "n8n-workflow";
+import { ICredentialType, INodeProperties, ICredentialTestRequest } from "n8n-workflow";
 
 export class FinlightApi implements ICredentialType {
   name = "finlightApi";
@@ -11,4 +11,20 @@ export class FinlightApi implements ICredentialType {
       default: "",
     },
   ];
+
+  test: ICredentialTestRequest = {
+    request: {
+      baseURL: "https://api.finlight.me/",
+      url: "v2/articles",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": "={{$credentials.apiKey}}",
+      },
+      body: {
+        pageSize: 1,
+        page: 1,
+      },
+    },
+  };
 }
