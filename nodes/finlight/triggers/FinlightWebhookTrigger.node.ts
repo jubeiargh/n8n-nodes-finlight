@@ -5,6 +5,7 @@ import {
   IWebhookFunctions,
   IWebhookResponseData,
   NodeConnectionTypes,
+  ICredentialTestRequest,
 } from "n8n-workflow";
 
 export class FinlightWebhookTrigger implements INodeType {
@@ -64,11 +65,36 @@ export class FinlightWebhookTrigger implements INodeType {
     icon: "file:../finlight.svg",
   };
 
+  test: ICredentialTestRequest = {
+    request: {
+      baseURL: "https://api.finlight.me/",
+      url: "v2/articles",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": "={{$credentials.apiKey}}",
+      },
+      body: {
+        pageSize: 1,
+        page: 1,
+      },
+    },
+    rules: [
+      {
+        type: "responseSuccessBody",
+        properties: {
+          key: "articles",
+          value: undefined,
+          message: "Authentication successful. Note: Webhook features may require additional permissions.",
+        },
+      },
+    ],
+  };
+
   async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
     const req = this.getRequestObject();
     const headers = req.headers;
     const body = req.body;
-    const rawBody = this.getBodyData() as unknown as string; // raw JSON string, not parsed
 
     const authMethod = this.getNodeParameter("authentication", "") as string;
 

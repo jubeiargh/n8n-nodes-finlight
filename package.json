@@ -1,6 +1,6 @@
 {
   "name": "@finlight/n8n-nodes-finlight",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Official n8n integration for finlight: real-time finance and news API",
   "author": {
     "name": "Ali Büyükkakac",

@@ -1,4 +1,10 @@
-import { INodeType, INodeTypeDescription, IExecuteFunctions, NodeConnectionTypes } from "n8n-workflow";
+import {
+  INodeType,
+  INodeTypeDescription,
+  IExecuteFunctions,
+  NodeConnectionTypes,
+  ICredentialTestRequest,
+} from "n8n-workflow";
 
 export class FinlightArticleSearch implements INodeType {
   description: INodeTypeDescription = {
@@ -160,6 +166,17 @@ export class FinlightArticleSearch implements INodeType {
         ],
       },
     ],
+  };
+
+  test: ICredentialTestRequest = {
+    request: {
+      baseURL: "https://api.finlight.me/",
+      url: "v2/articles",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": "={{$credentials.apiKey}}",
+      },
+    },
   };
 
   async execute(this: IExecuteFunctions) {
