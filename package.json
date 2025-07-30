@@ -16,7 +16,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp nodes/finlight/finlight.svg dist/nodes/finlight/",
     "lint": "eslint . --ext .ts",
     "test": "jest",
     "prepublishOnly": "npm run build"
