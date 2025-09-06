@@ -7,7 +7,7 @@ export class FinlightApi implements ICredentialType {
     {
       displayName: "API Key",
       name: "apiKey",
-      type: "string",
+      type: "credentials",
       default: "",
     },
   ];
