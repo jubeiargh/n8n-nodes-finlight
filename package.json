@@ -1,6 +1,6 @@
 {
   "name": "@finlight/n8n-nodes-finlight",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Official n8n integration for finlight: real-time finance and news API",
   "author": {
     "name": "Ali Büyükkakac",
@@ -28,7 +28,6 @@
     "@typescript-eslint/parser": "^8.38.0",
     "eslint": "^9.32.0",
     "eslint-plugin-n8n-nodes-base": "^1.16.3",
-    "n8n-core": "^1.14.1",
     "jest": "^29.4.0",
     "n8n-workflow": "*",
     "ts-jest": "^29.4.0",
