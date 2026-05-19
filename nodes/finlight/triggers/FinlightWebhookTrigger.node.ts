@@ -5,63 +5,63 @@ import {
   IWebhookFunctions,
   IWebhookResponseData,
   NodeConnectionTypes,
-} from "n8n-workflow";
+} from 'n8n-workflow';
 
 export class FinlightWebhookTrigger implements INodeType {
   description: INodeTypeDescription = {
-    displayName: "finlight Webhook Trigger",
-    name: "finlightWebhookTrigger",
-    group: ["trigger"],
+    displayName: 'finlight Webhook Trigger',
+    name: 'finlightWebhookTrigger',
+    group: ['trigger'],
     version: 1,
-    description: "Triggers on new webhook events from finlight",
+    description: 'Triggers on new webhook events from finlight',
     defaults: {
-      name: "finlight Webhook Trigger",
+      name: 'finlight Webhook Trigger',
     },
     inputs: [],
     outputs: [NodeConnectionTypes.Main],
     credentials: [
       {
-        name: "finlightWebhookSecret",
+        name: 'finlightWebhookSecret',
         required: true,
         displayOptions: {
           show: {
-            authentication: ["apiKey"],
+            authentication: ['apiKey'],
           },
         },
       },
       {
-        name: "httpBasicAuth",
+        name: 'httpBasicAuth',
         required: true,
         displayOptions: {
           show: {
-            authentication: ["basicAuth"],
+            authentication: ['basicAuth'],
           },
         },
       },
     ],
     properties: [
       {
-        displayName: "Authentication Method",
-        name: "authentication",
-        type: "options",
+        displayName: 'Authentication Method',
+        name: 'authentication',
+        type: 'options',
         options: [
-          { name: "Webhook Secret (X-Finlight-Key)", value: "apiKey" },
-          { name: "Basic Auth", value: "basicAuth" },
-          { name: "None", value: "none" },
+          { name: 'Webhook Secret (X-Finlight-Key)', value: 'apiKey' },
+          { name: 'Basic Auth', value: 'basicAuth' },
+          { name: 'None', value: 'none' },
         ],
-        default: "apiKey",
+        default: 'apiKey',
       },
     ],
     webhooks: [
       {
-        name: "default",
-        httpMethod: "POST",
-        responseMode: "onReceived",
-        path: "finlight",
+        name: 'default',
+        httpMethod: 'POST',
+        responseMode: 'onReceived',
+        path: 'finlight',
       },
     ],
-    documentationUrl: "https://docs.finlight.me",
-    icon: "file:../finlight.svg",
+    documentationUrl: 'https://docs.finlight.me',
+    icon: 'file:../finlight.svg',
   };
 
   async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
@@ -69,25 +69,25 @@ export class FinlightWebhookTrigger implements INodeType {
     const headers = req.headers;
     const body = req.body;
 
-    const authMethod = this.getNodeParameter("authentication", "") as string;
+    const authMethod = this.getNodeParameter('authentication', '') as string;
 
     // Auth: Webhook Secret (X-Finlight-Key)
-    if (authMethod === "apiKey") {
-      const credentials = await this.getCredentials("finlightWebhookSecret");
+    if (authMethod === 'apiKey') {
+      const credentials = await this.getCredentials('finlightWebhookSecret');
       const expectedSecret = credentials.secret as string;
-      const receivedKey = headers["x-finlight-key"] as string;
+      const receivedKey = headers['x-finlight-key'] as string;
       if (!receivedKey || receivedKey !== expectedSecret) {
-        throw new Error("Unauthorized: Invalid webhook secret");
+        throw new Error('Unauthorized: Invalid webhook secret');
       }
     }
 
     // Auth: Basic
-    if (authMethod === "basicAuth") {
-      const credentials = await this.getCredentials("httpBasicAuth");
-      const authHeader = headers["authorization"];
-      const expected = "Basic " + Buffer.from(`${credentials.user}:${credentials.password}`).toString("base64");
+    if (authMethod === 'basicAuth') {
+      const credentials = await this.getCredentials('httpBasicAuth');
+      const authHeader = headers['authorization'];
+      const expected = 'Basic ' + Buffer.from(`${credentials.user}:${credentials.password}`).toString('base64');
       if (authHeader !== expected) {
-        throw new Error("Unauthorized: Invalid Basic Auth");
+        throw new Error('Unauthorized: Invalid Basic Auth');
       }
     }
 
