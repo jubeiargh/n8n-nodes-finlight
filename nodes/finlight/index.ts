@@ -1,4 +1,6 @@
 import { FinlightWebhookTrigger } from "./triggers/FinlightWebhookTrigger.node";
-import { FinlightArticleSearch } from "./actions/FinlightArticleSearch.node";
+import { FinlightApi } from "./actions/FinlightApi.node";
+import { FinlightWebhookSecret } from "./credentials/FinlightWebhookSecret.credentials";
 
-export const nodes = [FinlightWebhookTrigger, FinlightArticleSearch];
+export const nodes = [FinlightWebhookTrigger, FinlightApi];
+export const credentials = [FinlightWebhookSecret];

@@ -21,7 +21,7 @@ export class FinlightWebhookTrigger implements INodeType {
     outputs: [NodeConnectionTypes.Main],
     credentials: [
       {
-        name: "finlightApi",
+        name: "finlightWebhookSecret",
         required: true,
         displayOptions: {
           show: {
@@ -45,7 +45,7 @@ export class FinlightWebhookTrigger implements INodeType {
         name: "authentication",
         type: "options",
         options: [
-          { name: "API Key Header (x-finlight-key)", value: "apiKey" },
+          { name: "Webhook Secret (X-Finlight-Key)", value: "apiKey" },
           { name: "Basic Auth", value: "basicAuth" },
           { name: "None", value: "none" },
         ],
@@ -71,12 +71,13 @@ export class FinlightWebhookTrigger implements INodeType {
 
     const authMethod = this.getNodeParameter("authentication", "") as string;
 
-    // Auth: API Key Header
+    // Auth: Webhook Secret (X-Finlight-Key)
     if (authMethod === "apiKey") {
-      const expectedKey = this.getNodeParameter("apiKey", "") as string;
+      const credentials = await this.getCredentials("finlightWebhookSecret");
+      const expectedSecret = credentials.secret as string;
       const receivedKey = headers["x-finlight-key"] as string;
-      if (!receivedKey || receivedKey !== expectedKey) {
-        throw new Error("Unauthorized: Invalid API key");
+      if (!receivedKey || receivedKey !== expectedSecret) {
+        throw new Error("Unauthorized: Invalid webhook secret");
       }
     }
 
