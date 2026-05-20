@@ -1,6 +1,6 @@
 {
   "name": "@finlight/n8n-nodes-finlight",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Official n8n integration for finlight: real-time finance and news API",
   "author": {
     "name": "Ali Büyükkakac",
@@ -14,6 +14,7 @@
     "node": ">=20.15"
   },
   "license": "MIT",
+  "homepage": "https://github.com/jubeiargh/n8n-nodes-finlight#readme",
   "main": "index.js",
   "scripts": {
     "build": "tsc && cp nodes/finlight/finlight.svg dist/nodes/finlight/",

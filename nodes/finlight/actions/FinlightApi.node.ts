@@ -314,14 +314,6 @@ export class FinlightApi implements INodeType {
   async execute(this: IExecuteFunctions) {
     const items = this.getInputData();
     const returnData: any[] = [];
-    const apiKey = (await this.getCredentials('finlightApi')) as {
-      apiKey: string;
-    };
-
-    const headers = {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey.apiKey,
-    };
 
     for (let i = 0; i < items.length; i++) {
       const operation = this.getNodeParameter('operation', i) as string;
@@ -367,10 +359,9 @@ export class FinlightApi implements INodeType {
         if (typeof additional.excludeEmptyContent === 'boolean')
           body.excludeEmptyContent = additional.excludeEmptyContent;
 
-        const response = await this.helpers.httpRequest({
+        const response = await this.helpers.httpRequestWithAuthentication.call(this, 'finlightApi', {
           method: 'POST',
           url: 'https://api.finlight.me/v2/articles',
-          headers,
           body,
           json: true,
         });
@@ -385,20 +376,18 @@ export class FinlightApi implements INodeType {
         if (includeContent) qs.includeContent = true;
         if (includeEntities) qs.includeEntities = true;
 
-        const response = await this.helpers.httpRequest({
+        const response = await this.helpers.httpRequestWithAuthentication.call(this, 'finlightApi', {
           method: 'GET',
           url: 'https://api.finlight.me/v2/articles/by-link',
-          headers,
           qs,
           json: true,
         });
 
         returnData.push(response?.article ?? response);
       } else if (operation === 'listSources') {
-        const response = await this.helpers.httpRequest({
+        const response = await this.helpers.httpRequestWithAuthentication.call(this, 'finlightApi', {
           method: 'GET',
           url: 'https://api.finlight.me/v2/sources',
-          headers,
           json: true,
         });
 

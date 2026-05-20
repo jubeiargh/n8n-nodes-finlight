@@ -1,4 +1,4 @@
-import { ICredentialType, INodeProperties, ICredentialTestRequest } from 'n8n-workflow';
+import { IAuthenticateGeneric, ICredentialType, INodeProperties, ICredentialTestRequest } from 'n8n-workflow';
 
 export class FinlightApi implements ICredentialType {
   name = 'finlightApi';
@@ -7,10 +7,20 @@ export class FinlightApi implements ICredentialType {
     {
       displayName: 'API Key',
       name: 'apiKey',
-      type: 'credentials',
+      type: 'string',
+      typeOptions: { password: true },
       default: '',
     },
   ];
+
+  authenticate: IAuthenticateGeneric = {
+    type: 'generic',
+    properties: {
+      headers: {
+        'x-api-key': '={{$credentials.apiKey}}',
+      },
+    },
+  };
 
   test: ICredentialTestRequest = {
     request: {
@@ -19,7 +29,6 @@ export class FinlightApi implements ICredentialType {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': '={{$credentials.apiKey}}',
       },
       body: {
         pageSize: 1,
