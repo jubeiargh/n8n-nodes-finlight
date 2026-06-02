@@ -101,9 +101,14 @@ export class FinlightWebhookTrigger implements INodeType {
       summary?: string;
       content?: string;
       sentiment?: string;
-      confidence?: string;
+      confidence?: number;
       images?: string[];
       companies?: any[];
+      createdAt?: string;
+      categories?: string[];
+      countries?: string[];
+      isUpdate?: boolean;
+      revisedDate?: string;
     }>;
 
     const output: Record<string, any> = {
@@ -117,9 +122,14 @@ export class FinlightWebhookTrigger implements INodeType {
     if (payload.summary) output.summary = payload.summary;
     if (payload.content) output.content = payload.content;
     if (payload.sentiment) output.sentiment = payload.sentiment;
-    if (payload.confidence) output.confidence = payload.confidence;
+    if (payload.confidence !== undefined) output.confidence = payload.confidence;
     if (payload.images?.length) output.images = payload.images;
     if (payload.companies?.length) output.companies = payload.companies;
+    if (payload.createdAt) output.createdAt = payload.createdAt;
+    if (payload.categories?.length) output.categories = payload.categories;
+    if (payload.countries?.length) output.countries = payload.countries;
+    if (payload.isUpdate !== undefined) output.isUpdate = payload.isUpdate;
+    if (payload.revisedDate) output.revisedDate = payload.revisedDate;
 
     return {
       workflowData: [[{ json: output }]],
